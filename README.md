@@ -3,7 +3,7 @@
 Fork and clone this repo. On your fork, answer and commit the follow questions. When you are finished, submit the link to your repo on Canvas.
 
 
-## Question 1
+## Question 1√
 
 - Create an instance of a dictionary called `citiesDict` that maps 3 countries to their capital cities.
 
@@ -11,8 +11,14 @@ Fork and clone this repo. On your fork, answer and commit the follow questions. 
 
 - Translate at least 3 of the capital names into another language.
 
+```swift
+var citiesDict:[String:String] = ["United State":"Washington DC", "Nigeria":"Lagos", "Mexico":"Mexico City" ]
 
-## Question 2
+citiesDict["France"] = "Paris"
+citiesDict["Canada"] = "Ottawa"
+```
+
+## Question 2√
 
 `var someDict:[String:Int] = ["One": 1, "Two": 4, "Three": 9, "Four": 16, "Five": 25]`
 
@@ -28,8 +34,54 @@ Fork and clone this repo. On your fork, answer and commit the follow questions. 
 
 - Add 2 to every value inside of `someDict`.
 
+```swift
+var someDict:[String:Int] = ["One": 1, "Two": 4, "Three": 9, "Four": 16, "Five": 25]
 
-## Question 3
+var multiple = 1
+var sum = Int()
+
+//add together the values associated with "Three" and "Five" and print the result
+if let three = someDict["Three"]{
+if let five = someDict["Five"]{
+print(three + five)
+}
+}
+// Add values to the dictionary for the keys "Six" and "Seven".
+someDict["Six"] = 30
+someDict["Seven"] = 21
+
+//Make a key called `productUpToSeven` and set its value equal to the product of all the values.
+for (key, value) in someDict {
+if key != nil {
+multiple *= value
+someDict["productUpToSeven"] = multiple
+}
+}
+print(someDict)
+
+//Make a key called `sumUpToSix` and set its value equal to the sum of the keys "One", "Two", "Three", "Four", "Five" and "Six".
+for (key, value) in someDict {
+if key != "productUpToSeven" && key != "Seven" {
+sum += value
+someDict["sumUpToSix"] = sum
+}
+}
+print(someDict)
+
+//Remove the new keys made in the previous two steps
+someDict["productUpToSeven"] = nil
+someDict["sumUpToSix"] = nil
+print(someDict)
+
+//Add 2 to every value inside of `someDict`.
+for (key, value) in someDict {
+someDict[key] = value + 2
+}
+print(someDict)
+```
+
+
+## Question 3√
 
 Create a variable that is explicitly typed as a dictionary that maps strings to floating point numbers. Initialize the variable to the data shown in the table below which lists an author name and their comprehensibility score.
 
@@ -51,8 +103,28 @@ Using the dictionary created in the previous problem, do the following:
 
 - Use a for-loop to iterate through the dictionary you created at the beginning of the problem, and print out the content in the form of key: value, one entry per line.
 
+```swift
+var authorScores:[String:Float] = ["Mark Twain": 18.9, "Nathaniel Hawthorne": 5.1, "John Steinbeck":2.3 ,"C.S. Lewis": 9.9, "Jon Krakauer": 6.1 ]
 
-## Question 4
+if let value = authorScores["John Steinbeck"] {
+print(value)
+}
+
+authorScores["Erik Larson"] = 9.2
+
+if let score1 = authorScores["Jon Krakauer"], let score2 = authorScores["Mark Twain"] {
+if score1 > score2 {
+print("Jon Krakauer")
+}else {
+print("Mark Twain")
+
+for (key, value) in authorScores {
+print("\(key): \(value)")
+}
+```
+
+
+## Question 4√
 
 You are given a dictionary code of type [String:String] which has values for all lowercase letters. The code dictionary represents a way to encode a message. For example if code["a"] = "z" and code["b"] = "x" the encoded version if "ababa" will be "zxzxz". You are also given a message which contains only lowercase letters and spaces. Use the `code` dictionary below to encode the message and print it.
 
@@ -88,12 +160,36 @@ var code = [
 
 var message = "hello world"
 ```
+```swift
+var result = String()
+var message = "hello world"
+for i in message {
+let letter = code[String(i)] ?? " "
+result += letter
+}
+print(result)
+```
+
 
 You are also given an `encodedMessage` which contains only lowercase letters and spaces. Use the `code` dictionary to decode the message and print it.
 `var encodedMessage = "uijt nfttbhf jt ibse up sfbe"`
 
+```swift
+var encodedMessage = "uijt nfttbhf jt ibse up sfbe"
+var result = String()
+for i in  encodedMessage{
+if i == " "{
+result += String(i)
+}
+for (key , value) in code{
+if String(i) == value {
+result += key
+}
+}
+}
+```
 
-## Question 5
+## Question 5√
 
 You are given an array of dictionaries. Each dictionary in the array contains exactly 2 keys `“firstName”` and `“lastName”`. Create an array of strings called `firstNames` that contains only the values for `“firstName”` from each dictionary.
 
@@ -121,11 +217,37 @@ var people: [[String:String]] = [
     ]
 ]
 ```
+```swift
+var firstName = [String]()
+// puts each dictionary into "dict"
+for dict in people {
+//check to see if "dict["firstName"]" has any value and asigns it to name
+if let name = dict["firstName"]{
+// then we push the value in name into firstName using [] since its an array
+firstName += [name]
+}
+}
+print(firstName)
 
-Now, create an array of strings called `fullNames` that contains the values for `“firstName”` and `“lastName”` from the dictionary separated by a space.
+```
 
+√Now, create an array of strings called `fullNames` that contains the values for `“firstName”` and `“lastName”` from the dictionary separated by a space.
 
-## Question 6
+```swift
+var fullName = [String]()
+
+for dict in people {
+if let firstname = dict["firstName"]{
+if let lastname = dict["lastName"]{
+fullName += ["\(firstname) \(lastname)"]
+}
+}
+}
+print(fullName)
+
+```
+
+## Question 6√
 
 You are given an array of dictionaries. Each dictionary in the array describes the score of a person. Find the person with the best score and print his full name.
 
@@ -159,6 +281,36 @@ var peopleWithScores: [[String: String]] = [
 ]
 ```
 
+```swift
+var value = [Int]()
+for person in peopleWithScores {
+if let scores = person["score"] {
+value += [Int(scores)!]
+}
+}
+var highValue = value.index(of: value.max()!)
+print(peopleWithScores[highValue!]["firstName"])
+
+```
+Explanation
+```swift
+//created an empty array of type int to hold all the score value from the dictionary
+var value = [Int]()
+//a for in loop to loop through the peopleWithScores array and store the dictionary to the people place holder
+for person in peopleWithScores {
+//used and if let statement to unwrap the score value in the dicrionary and assign them in the "scores" place holder
+if let scores = person["score"] {
+// added the score of the scores to the "value" array variable created
+value += [Int(scores)!]
+}
+}
+print(value)
+// To get the index of the higest score in the array, i used "(TheArrayName).index(of: (TheArrayName).max()!)". Then stored it in a variable to be called upon.
+var highValue = value.index(of: value.max()!)
+// To get the firstName of the person with the higest score
+//nameOfTheArray[CodeOfTheIndexWithHigestValueUnWrapped][Key:firstName]
+print(peopleWithScores[highValue!]["firstName"])
+```
 Print out the dictionary above in the following format:  **full name - score**
 
 
@@ -178,12 +330,20 @@ Print the most common letter in the string below:
 `var myString = "We're flooding people with information. We need to feed it through a processor. A human must turn information into intelligence or knowledge. We've tended to forget that no computer will ever ask a new question."`
 
 
-## Question 9
+## Question 9√
 
 Write code that creates a dictionary where the keys are Ints between 0 and 20 inclusive, and each key's value is its cube.
 
+```swift
+var cube = [Int:Int]()
+for i in 0...20 {
+let iCubed = i * i * i
+cube.updateValue(iCubed, forKey: i)
+}
+print(cube)
+```
 
-## Question 10
+## Question 10√
 
 Write code that iterates through `testStates` and prints out whether or not that key is in `statePop`.
 
@@ -191,27 +351,73 @@ Write code that iterates through `testStates` and prints out whether or not that
 let statePop = ["Alabama": 4.8, "Alaska": 0.7, "Arizona": 6.7, "Arkansas": 3.0]
 let testStates = ["California","Arizona", "Alabama", "New Mexico"]
 ```
+```swift
 
+for i in testStates {
+if statePop.keys.contains(i){
+print(i)
+}
+}
+```
 
-## Question 11
+## Question 11√
 
 You are given the dictionary `deposits`, which maps a persons name to an array of deposits that have been made to their account.
 
+```swift
+var deposits: [String: [Double]] = [
+"Williams" : [300.65, 270.45, 24.70, 52.00, 99.99],
+"Cooper" : [200.56, 55.00, 600.78, 305.15, 410.76, 35.00],
+"Davies" : [400.98, 56.98, 300.00],
+"Clark" : [555.23, 45.67, 99.95, 80.76, 56.99, 46.50, 265.70],
+"Johnson" : [12.56, 300.00, 640.50, 255.60, 26.88]
+]
+```
+
 a) Write code to to print the name and total amount deposited of the person who recieved the most money.
 
+```swift
+var namePlusTotalAccountValue =  [String:Double]()
+
+for (person, account) in deposits {
+let accountSum = account.reduce(0, +)
+namePlusTotalAccountValue.updateValue(accountSum, forKey: person)
+}
+print(namePlusTotalAccountValue)
+```
+
+
 b) Create an array called `stolenCents`, iterate over deposits for each person and steal their cents! ... like Office Space or Superman 3. Calculate the decimal part of each value, add it to the `stolenCents` array and round down the value in the dict.
+
+```swift
+var stolenCents = [Double]()
+var moneyValue = [[Double]]()
+
+for money in deposits.values{
+moneyValue += [money]
+}
+//print(moneyValue)
+var holder = [Double]()
+for money in moneyValue{
+let hold = money
+var pennies = Double()
+for cents in hold{
+pennies += cents - Double(Int(cents))
+}
+stolenCents += [pennies]
+}
+print(stolenCents)
+```
 
 c) How much money did you steal?
 
 ```swift
-var deposits: [String: [Double]] = [
- "Williams" : [300.65, 270.45, 24.70, 52.00, 99.99],
- "Cooper" : [200.56, 55.00, 600.78, 305.15, 410.76, 35.00],
- "Davies" : [400.98, 56.98, 300.00],
- "Clark" : [555.23, 45.67, 99.95, 80.76, 56.99, 46.50, 265.70],
- "Johnson" : [12.56, 300.00, 640.50, 255.60, 26.88]
-]
+var amountStolen = stolenCents.reduce(0, +)
+
+var amountStolenReduced = "We stole $\(round(1000 * stolenCents.reduce(0, +))/1000) from the acounts"
+print(amountStolenReduced)
 ```
+
 
 
 ## Question 12
@@ -221,7 +427,7 @@ Print the second most common letter in the string below:
 `var myString = "We're flooding people with information. We need to feed it through a processor. A human must turn information into intelligence or knowledge. We've tended to forget that no computer will ever ask a new question."`
 
 
-## Question 13
+## Question 13√
 
 Given the below 4 arrays of Ints,
 
@@ -235,7 +441,24 @@ let arr2 = [1, 2, 3, 4, 5, 6]
 let arr3 = [5, 6, 7, 8, 9, 10, 11, 12]
 let arr4 = [1, 3, 4, 5, 6, 7, 9]
 ```
+```swift
+var array = [arr1,arr2,arr3,arr4]
+var fullArray = [Int]()
 
+for i in array{
+fullArray += i
+}
+var sortedArray = Set(fullArray).sorted()
+print(sortedArray)
+```
+```swift
+var intInAll4Arr = [Int]()
+for i in sortedArray where arr1.contains(i) && arr2.contains(i) && arr3.contains(i) && arr4.contains(i){
+intInAll4Arr += [i]
+}
+print(intInAll4Arr)
+
+```
 
 ## Question 14
 
